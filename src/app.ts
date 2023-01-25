@@ -1,7 +1,7 @@
 import express, {Express} from 'express'
 import { WecareServer } from './server'
 import databaseConnection from "./data/setupDatabase";
-import { config } from './config/config';
+import { config } from './config';
 
 class Application {
     public initialize (): void {
@@ -14,6 +14,7 @@ class Application {
 
     private loadConfig():void{
         config.validateConfig();
+        config.cloudinaryConfig();
     }
 }
 
