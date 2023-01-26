@@ -15,10 +15,13 @@ import { authQueue } from "src/services/queues/auth.queue";
 import { userQueue } from "src/services/queues/user.queue";
 import JWT from 'jsonwebtoken'
 import { config } from "src/config";
+import { omit } from "lodash";
 
-const userCache: UserCache = new UserCache();
+
 let mongooseId = require('mongoose');
 
+
+const userCache: UserCache = new UserCache();
 
 export class SignUp {
   @joiValidation(signupSchema)
@@ -41,21 +44,23 @@ export class SignUp {
       avatarColor
     });
     const result: UploadApiResponse = (await uploads(avatarImage, `${userObjectId}`, true, true)) as UploadApiResponse;
-    if (!result?.public_id) {
-      throw new BadRequestError('File upload: Error occurred. Try again.');
-    }
+    // if (!result?.public_id) {
+    //   throw new BadRequestError('File upload: Error occurred. Try again.');
+    // }
 
-
+    // Add to redis cache
     const userDataForCache: IUserDocument = SignUp.prototype.userData(authData, userObjectId);
-    userDataForCache.profilePicture = `https://res.cloudinary.com/bmyguest-img/image/upload/v${result.version}/${userObjectId}`;
+    userDataForCache.profilePicture = `https://res.cloudinary.com/dyamr9ym3/image/upload/v${result.version}/${userObjectId}`;
     await userCache.saveUserToCache(`${userObjectId}`, uId, userDataForCache);
 
     // Add to database
-    authQueue.addAuthUserJob('addAuthUserToDB', { value: authData });
+    omit(userDataForCache, ['uId', 'username', 'email', 'avatarColor', 'password']);
+    authQueue.addAuthUserJob('addAuthUserToDB', { value: userDataForCache });
     userQueue.addUserJob('addUserToDB', { value: userDataForCache });
 
     const userJwt: string = SignUp.prototype.signToken(authData, userObjectId);
     req.session = { jwt: userJwt };
+
     res.status(HTTP_STATUS.CREATED).json({ message: 'User created successfully', user: userDataForCache, token: userJwt });
   }
 

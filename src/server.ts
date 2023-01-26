@@ -14,6 +14,7 @@ import { config } from './config';
 import routes from './routes'
 import { CustomError, IErrorResponse } from './utils/error-handler';
 import Logger from 'bunyan';
+import { SocketIOPostHandler } from './services/sockets/post.sokets';
 
 const SERVER_PORT = 5000;
 const log: Logger = config.createLogger('server');
@@ -38,7 +39,7 @@ export class WecareServer {
       cookieSession({
         name: 'session',
         keys: [config.SECRET_KEY_ONE!, config.SECRET_KEY_TWO!],
-        maxAge: 5000,
+        maxAge: 24*7*360000,
         secure: config.NODE_ENV !== 'development'
       })
     );
@@ -112,6 +113,8 @@ export class WecareServer {
 
 
   private socketIOConnections(io: Server): void {
-    log.info('socketIOConnections');
+   const postSocketHandler:SocketIOPostHandler=new SocketIOPostHandler(io);
+
+   postSocketHandler.listen()
   }
 }
