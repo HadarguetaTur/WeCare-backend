@@ -1,15 +1,6 @@
+import { IReactions } from 'src/api/reactions/interfaces/reactions.interface';
 import { ObjectId } from 'mongodb';
 import mongoose, { Document } from 'mongoose';
-
-// move this to reactions interface later
-export interface IReactions {
-  like: number;
-  love: number;
-  happy: number;
-  wow: number;
-  sad: number;
-  angry: number;
-}
 
 export interface IPostDocument extends Document {
   _id?: string | mongoose.Types.ObjectId;
@@ -28,8 +19,6 @@ export interface IPostDocument extends Document {
   privacy?: string;
   reactions?: IReactions;
   createdAt?: Date;
-  videoId:string,
-  videoVersion:string,
 }
 
 export interface IGetPostsQuery {

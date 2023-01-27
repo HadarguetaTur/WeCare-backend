@@ -2,7 +2,8 @@ import { BaseCache } from './base.cache';
 import Logger from 'bunyan';
 import { config } from 'src/config';
 import { ServerError } from 'src/utils/error-handler';
-import { ISavePostToCache, IPostDocument, IReactions } from '../../api/post/interfaces/post.interface';
+import { ISavePostToCache, IPostDocument } from '../../api/post/interfaces/post.interface';
+import { IReactions } from 'src/api/reactions/interfaces/reactions.interface';
 import { Helpers } from 'src/utils/helpers';
 import { RedisCommandRawReply } from '@redis/client/dist/lib/commands';
 
@@ -77,7 +78,8 @@ export class PostCache extends BaseCache {
     ];
 
     const dataToSave = Object.entries(createdPost).map(([key, value]) =>
-      [key, value.toString()]).flat();
+      [key, value.toString()])
+      .flat();
 
     try {
       if (!this.client.isOpen) {
@@ -125,19 +127,6 @@ export class PostCache extends BaseCache {
     }
   }
 
-  public async getTotalPostsInCache(): Promise<number> {
-    try {
-      if (!this.client.isOpen) {
-        await this.client.connect();
-      }
-      const count: number = await this.client.ZCARD('post');
-      return count;
-    } catch (error) {
-      log.error(error);
-      throw new ServerError('Server error. Try again.');
-    }
-  }
-
   public async getPostsWithImagesFromCache(key: string, start: number, end: number): Promise<IPostDocument[]> {
     try {
       if (!this.client.isOpen) {
@@ -160,6 +149,19 @@ export class PostCache extends BaseCache {
         }
       }
       return postWithImages;
+    } catch (error) {
+      log.error(error);
+      throw new ServerError('Server error. Try again.');
+    }
+  }
+
+  public async getTotalPostsInCache(): Promise<number> {
+    try {
+      if (!this.client.isOpen) {
+        await this.client.connect();
+      }
+      const count: number = await this.client.ZCARD('post');
+      return count;
     } catch (error) {
       log.error(error);
       throw new ServerError('Server error. Try again.');
