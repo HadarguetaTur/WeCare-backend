@@ -19,6 +19,8 @@ export interface IPostDocument extends Document {
   privacy?: string;
   reactions?: IReactions;
   createdAt?: Date;
+  title?:string;
+  content?:string;
 }
 
 export interface IGetPostsQuery {

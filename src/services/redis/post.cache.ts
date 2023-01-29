@@ -42,56 +42,52 @@ export class PostCache extends BaseCache {
         createdAt
       } } = data;
 
-    const createdPost: string[] = [
-      '_id',
-      `${_id}`,
-      'userId',
-      `${userId}`,
-      'username',
-      `${username}`,
-      'email',
-      `${email}`,
-      'avatarColor',
-      `${avatarColor}`,
-      'profilePicture',
-      `${profilePicture}`,
-      'post',
-      `${post}`,
-      'bgColor',
-      `${bgColor}`,
-      'feelings',
-      `${feelings}`,
-      'privacy',
-      `${privacy}`,
-      'gifUrl',
-      `${gifUrl}`,
-      'commentsCount',
-      `${commentsCount}`,
-      'reactions',
-      JSON.stringify(reactions),
-      'imgVersion',
-      `${imgVersion}`,
-      'imgId',
-      `${imgId}`,
-      'createdAt',
-      `${createdAt}`
+    const dataToSave: any[] = [
+      ['_id',
+      `${_id}`],
+     [ 'userId',
+      `${userId}`],
+      ['username',
+      `${username}`],
+      ['email',
+      `${email}`],
+      ['avatarColor',
+      `${avatarColor}`],
+      ['profilePicture',
+      `${profilePicture}`],
+      ['post',
+      `${post}`],
+      ['bgColor',
+      `${bgColor}`],
+      ['feelings',
+      `${feelings}`],
+      ['privacy',
+      `${privacy}`],
+      ['gifUrl',
+      `${gifUrl}`],
+      ['commentsCount',
+      `${commentsCount}`],
+      ['reactions',
+      JSON.stringify(reactions)],
+      ['imgVersion',
+      `${imgVersion}`],
+     [ 'imgId',
+      `${imgId}`],
+      ['createdAt',
+      `${createdAt}`]
     ];
-
-    const dataToSave = Object.entries(createdPost).map(([key, value]) =>
-      [key, value.toString()])
-      .flat();
 
     try {
       if (!this.client.isOpen) {
         await this.client.connect();
       }
+      await this.client.ZADD('post', { score: parseInt(uId, 10), value: `${key}` });
+      dataToSave.forEach(async (value) => {
+        await this.client.HSET(`posts:${key}`, value);
 
+      })
       const postCount: string[] = await this.client.HMGET(`users:${currentUserId}`, 'postsCount');
       const multi: ReturnType<typeof this.client.multi> = this.client.multi();
-      await this.client.ZADD('post', { score: parseInt(uId, 10), value: `${key}` });
-      for (let i = 0; i < dataToSave.length; i += 2) {
-        multi.HSET(`posts:${key}`, dataToSave[i], dataToSave[i + 1]);
-      }
       const count: number = parseInt(postCount[0], 10) + 1;
       multi.HSET(`users:${currentUserId}`, ['postsCount', count]);
       multi.exec();
@@ -111,15 +107,14 @@ export class PostCache extends BaseCache {
       for (const value of reply) {
         multi.HGETALL(`posts:${value}`);
       }
-      const replies: PostCacheMultiType = await multi.exec() as PostCacheMultiType;
+      const replies: any[] = await multi.exec();
       const postReplies: IPostDocument[] = [];
-      for (const post of replies as IPostDocument[]) {
-        post.commentsCount = Helpers.parseJson(`${post.commentsCount}`) as number;
-        post.reactions = Helpers.parseJson(`${post.reactions}`) as IReactions;
-        post.createdAt = new Date(Helpers.parseJson(`${post.createdAt}`)) as Date;
+      for (const post of replies) {
+        post.commentsCount = parseInt(post.commentsCount, 10);
+        post.reactions = JSON.parse(post.reactions);
+        post.createdAt = new Date(post.createdAt);
         postReplies.push(post);
       }
-      console.log(postReplies)
       return postReplies;
     } catch (error) {
       log.error(error);
