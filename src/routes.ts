@@ -6,6 +6,7 @@ import { authMiddleware } from './middlewares/auth-middelware';
 import { postRoutes } from './api/post/routes/postRoutes';
 import { reactionRoutes } from './api/reactions/routs/reactions.routes';
 import { commentRoutes } from './api/comments/routes/comment-routs';
+import { notificationRoutes } from './api/notificartions/routes/notificationRoutes';
 
 const BASE_PATH = '/wecare';
 
@@ -14,11 +15,11 @@ export default (app: Application) => {
     app.use('/queues', serverAdapter.getRouter());
     app.use(BASE_PATH, authRoutes.routes());
     app.use(BASE_PATH, authRoutes.signoutRoute());
-
     app.use(BASE_PATH, authMiddleware.verifyUser, currentUserRoutes.routes());
     app.use(BASE_PATH, authMiddleware.verifyUser, postRoutes.routes());
     app.use(BASE_PATH, authMiddleware.verifyUser, reactionRoutes.routes());
     app.use(BASE_PATH, authMiddleware.verifyUser, commentRoutes.routes());
+    app.use(BASE_PATH, authMiddleware.verifyUser, notificationRoutes.routes());
   };
   routes();
 };

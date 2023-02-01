@@ -15,6 +15,7 @@ import routes from './routes'
 import { CustomError, IErrorResponse } from './utils/error-handler';
 import Logger from 'bunyan';
 import { SocketIOPostHandler } from './services/sockets/post.sokets';
+import { SocketIONotificationHandler } from './services/sockets/notifications.socet';
 
 const SERVER_PORT = 5000;
 const log: Logger = config.createLogger('server');
@@ -114,7 +115,8 @@ export class WecareServer {
 
   private socketIOConnections(io: Server): void {
    const postSocketHandler:SocketIOPostHandler=new SocketIOPostHandler(io);
-
+   const notificationSocketHandler: SocketIONotificationHandler = new SocketIONotificationHandler();
    postSocketHandler.listen()
+   notificationSocketHandler.listen(io);
   }
 }
