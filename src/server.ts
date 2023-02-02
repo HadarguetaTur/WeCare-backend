@@ -18,6 +18,7 @@ import { SocketIOPostHandler } from './services/sockets/post.sokets';
 import { SocketIONotificationHandler } from './services/sockets/notifications.socet';
 import { SocketIOFollowerHandler } from './services/sockets/followers.socets';
 import { SocketIOImageHandler } from './services/sockets/image.socets';
+import { SocketIOChatHandler } from './services/sockets/chet.sockets';
 
 const SERVER_PORT = 5000;
 const log: Logger = config.createLogger('server');
@@ -120,10 +121,12 @@ export class WecareServer {
     const notificationSocketHandler: SocketIONotificationHandler = new SocketIONotificationHandler();
     const followerSocketHandler: SocketIOFollowerHandler = new SocketIOFollowerHandler(io);
     const imageSocketHandler: SocketIOImageHandler = new SocketIOImageHandler();
-    
+    const chatSocketHandler: SocketIOChatHandler = new SocketIOChatHandler(io);
+
     postSocketHandler.listen()
     notificationSocketHandler.listen(io);
     followerSocketHandler.listen();
     imageSocketHandler.listen(io);
+    chatSocketHandler.listen();
   }
 }
