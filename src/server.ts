@@ -8,7 +8,7 @@ import cookieSession from 'cookie-session';
 import HTTP_STATUS from 'http-status-codes';
 import { Server } from 'socket.io';
 import { createClient } from 'redis';
-import { createAdapter} from '@socket.io/redis-adapter'
+import { createAdapter } from '@socket.io/redis-adapter'
 import 'express-async-errors';
 import { config } from './config';
 import routes from './routes'
@@ -17,6 +17,7 @@ import Logger from 'bunyan';
 import { SocketIOPostHandler } from './services/sockets/post.sokets';
 import { SocketIONotificationHandler } from './services/sockets/notifications.socet';
 import { SocketIOFollowerHandler } from './services/sockets/followers.socets';
+import { SocketIOImageHandler } from './services/sockets/image.socets';
 
 const SERVER_PORT = 5000;
 const log: Logger = config.createLogger('server');
@@ -41,7 +42,7 @@ export class WecareServer {
       cookieSession({
         name: 'session',
         keys: [config.SECRET_KEY_ONE!, config.SECRET_KEY_TWO!],
-        maxAge: 24*7*360000,
+        maxAge: 24 * 7 * 360000,
         secure: config.NODE_ENV !== 'development'
       })
     );
@@ -102,7 +103,7 @@ export class WecareServer {
     const pubClient = createClient({ url: config.REDIS_HOST });
     const subClient = pubClient.duplicate();
     await Promise.all([pubClient.connect(), subClient.connect()]);
-    io.adapter(createAdapter( pubClient, subClient));
+    io.adapter(createAdapter(pubClient, subClient));
     return io;
   }
 
@@ -115,12 +116,14 @@ export class WecareServer {
 
 
   private socketIOConnections(io: Server): void {
-   const postSocketHandler:SocketIOPostHandler=new SocketIOPostHandler(io);
-   const notificationSocketHandler: SocketIONotificationHandler = new SocketIONotificationHandler();
-   const followerSocketHandler: SocketIOFollowerHandler = new SocketIOFollowerHandler(io);
-
-   postSocketHandler.listen()
-   notificationSocketHandler.listen(io);
-   followerSocketHandler.listen();
+    const postSocketHandler: SocketIOPostHandler = new SocketIOPostHandler(io);
+    const notificationSocketHandler: SocketIONotificationHandler = new SocketIONotificationHandler();
+    const followerSocketHandler: SocketIOFollowerHandler = new SocketIOFollowerHandler(io);
+    const imageSocketHandler: SocketIOImageHandler = new SocketIOImageHandler();
+    
+    postSocketHandler.listen()
+    notificationSocketHandler.listen(io);
+    followerSocketHandler.listen();
+    imageSocketHandler.listen(io);
   }
 }
