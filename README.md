@@ -7,3 +7,6 @@ I’m building the front end using React, integrating with the NodeJS backend de
  ● Optimizes and makes treatment personnel accessible in the field of child development
  
  ● Helping therapists build themselves as an independent business
+ 
+ ![CFC (3)](https://user-images.githubusercontent.com/106341739/218725513-ce81f30d-2739-4069-8199-303f2b8031a1.png)
+
