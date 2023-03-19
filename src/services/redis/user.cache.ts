@@ -1,5 +1,5 @@
 import { BaseCache } from './base.cache';
-import { IAllUsers, INotificationSettings, ISocialLinks, IUserDocument } from '../../api/user/interfaces/user.interface';
+import {  INotificationSettings, ISocialLinks, IUserDocument } from '../../api/user/interfaces/user.interface';
 import Logger from 'bunyan';
 import { indexOf, findIndex } from 'lodash';
 import { config } from 'src/config';
@@ -20,6 +20,8 @@ export class UserCache extends BaseCache {
 
   public async saveUserToCache(key: string, userUId: string, createdUser: IUserDocument): Promise<void> {
     const createdAt = new Date();
+    console.log(createdUser);
+    
     const {
       _id,
       uId,
@@ -138,7 +140,7 @@ export class UserCache extends BaseCache {
       if (!this.client.isOpen) {
         await this.client.connect();
       }
-      const response: string[] = await this.client.ZRANGE('user', start, end, { REV: true });
+      const response: string[] = await this.client.ZRANGE('user', start, end);
       const multi: ReturnType<typeof this.client.multi> = this.client.multi();
       for (const key of response) {
         if (key !== excludedUserKey) {
@@ -164,7 +166,7 @@ export class UserCache extends BaseCache {
         reply.location = Helpers.parseJson(`${reply.location}`);
         reply.quote = Helpers.parseJson(`${reply.quote}`);
 
-        userReplies.push(reply);
+        userReplies.push(reply as IUserDocument);
       }
       return userReplies;
     } catch (error) {
@@ -219,7 +221,7 @@ export class UserCache extends BaseCache {
     try {
       if (!this.client.isOpen) {
         await this.client.connect();
-      }
+      }    
       const dataToSave: string[] = [`${prop}`, JSON.stringify(value)];
       await this.client.HSET(`users:${userId}`, dataToSave);
       const response: IUserDocument = (await this.getUserFromCache(userId)) as IUserDocument;

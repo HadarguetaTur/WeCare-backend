@@ -16,7 +16,6 @@ const postCache: PostCache = new PostCache();
 export class Create {
   @joiValidation(postSchema)  
   public async post(req: Request, res: Response): Promise<void> {
-  console.log(req.currentUser)
     const { post, bgColor, privacy, gifUrl, profilePicture, feelings } = req.body;
     const postObjectId: ObjectId = new ObjectId();
     const createdPost: IPostDocument = {
@@ -52,7 +51,6 @@ export class Create {
   @joiValidation(postWithImageSchema)
   public async postWithImage(req: Request, res: Response): Promise<void> {
     const { post, bgColor, privacy, gifUrl, profilePicture, feelings, image } = req.body;
-
     const result: UploadApiResponse = (await uploads(image)) as UploadApiResponse;
     if (!result?.public_id) {
       throw new BadRequestError(result.message);

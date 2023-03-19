@@ -10,6 +10,7 @@ import { notificationRoutes } from './api/notificartions/routes/notificationRout
 import { followerRoutes } from './api/followers/routes/followerRoutes';
 import { imageRoutes } from './api/images/routes/image-routes';
 import { chatRoutes } from './api/chet/routes/chet-routes';
+import { userRoutes } from './api/user/routes/user-routes';
 
 
 const BASE_PATH = '/wecare';
@@ -27,6 +28,7 @@ export default (app: Application) => {
     app.use(BASE_PATH, authMiddleware.verifyUser, followerRoutes.routes());
     app.use(BASE_PATH, authMiddleware.verifyUser, imageRoutes.routes());
     app.use(BASE_PATH, authMiddleware.verifyUser, chatRoutes.routes());
+    app.use(BASE_PATH, authMiddleware.verifyUser, userRoutes.routes());
   };
   routes();
 };

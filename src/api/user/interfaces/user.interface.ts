@@ -25,7 +25,6 @@ export interface IUserDocument extends Document {
   bgImageId: string;
   profilePicture: string;
   createdAt?: Date;
-  isTera?:boolean;
 }
 
 export interface IResetPasswordParams {

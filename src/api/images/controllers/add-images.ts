@@ -11,6 +11,7 @@ import { socketIOImageObject } from 'src/services/sockets/image.socets';
 import { imageQueue } from 'src/services/queues/image.queue';
 import { IBgUploadResponse } from '../interfaces/image.interface';
 import { Helpers } from 'src/utils/helpers';
+import { userService } from 'src/services/db/user.service';
 
 const userCache: UserCache = new UserCache();
 
@@ -21,12 +22,17 @@ export class Add {
     if (!result?.public_id) {
       throw new BadRequestError('File upload: Error occurred. Try again.');
     }
-    const url = `https://res.cloudinary.com/dyamr9ym3/image/upload/v${result.version}/${result.public_id}`;
+    const url = `https://res.cloudinary.com/wecare-img/image/upload/v${result.version}/${result.public_id}`;
     const cachedUser: IUserDocument = (await userCache.updateSingleUserItemInCache(
       `${req.currentUser!.userId}`,
       'profilePicture',
       url
     )) as IUserDocument;
+    const user: IUserDocument = await userService.getUserByAuthId(`${req.currentUser!.userId}`);
+    const userDocument: IUserDocument = {
+      ...user,
+      ...cachedUser
+    } as IUserDocument;
     socketIOImageObject.emit('update user', cachedUser);
     imageQueue.addImageJob('addUserProfileImageToDB', {
       key: `${req.currentUser!.userId}`,
@@ -34,7 +40,7 @@ export class Add {
       imgId: result.public_id,
       imgVersion: result.version.toString()
     });
-    res.status(HTTP_STATUS.OK).json({ message: 'Image added successfully' });
+    res.status(HTTP_STATUS.OK).json({ message: 'Image added successfully', user: userDocument });
   }
 
   @joiValidation(addImageSchema)

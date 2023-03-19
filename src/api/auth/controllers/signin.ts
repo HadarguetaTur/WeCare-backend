@@ -15,7 +15,7 @@ export class SignIn {
   @joiValidation(loginSchema)
   public async read(req: Request, res: Response): Promise<void> {
     const { username, password } = req.body;
-    const existingUser: IAuthDocument = await authService.getAuthUserByUsername(username);
+    const existingUser: IAuthDocument = await authService.getAuthUserByUsername(username);   
     if (!existingUser) {
       throw new BadRequestError('Invalid credentials');
     }
@@ -25,19 +25,20 @@ export class SignIn {
       throw new BadRequestError('Invalid credentials');
     }
     const user: IUserDocument = await userService.getUserByAuthId(`${existingUser._id}`);
+      
     const userJwt: string = JWT.sign(
       {
         userId: existingUser._id,
         uId: existingUser.uId,
         email: existingUser.email,
         username: existingUser.username,
-        avatarColor: existingUser.avatarColor
+        avatarColor: existingUser.avatarColor,
+        
       },
       config.JWT_TOKEN!
     );
     
     req.session = { jwt: userJwt };
-
     const userDocument: IUserDocument = {
       ...user,
       authId: existingUser!._id,

@@ -7,7 +7,6 @@ import { BadRequestError } from "src/utils/error-handler";
 import { Helpers } from "src/utils/helpers";
 import { uploads } from "src/utils/cloudinary-upload";
 import { UploadApiResponse } from 'cloudinary'
-import { ObjectId } from "mongoose";
 import HTTP_STATUS from 'http-status-codes'
 import { IUserDocument } from "src/api/user/interfaces/user.interface";
 import { UserCache } from "src/services/redis/user.cache";
@@ -15,25 +14,23 @@ import { authQueue } from "src/services/queues/auth.queue";
 import { userQueue } from "src/services/queues/user.queue";
 import JWT from 'jsonwebtoken'
 import { config } from "src/config";
-import { omit } from "lodash";
-
-
-let mongooseId = require('mongoose');
-
+import { ObjectId } from 'mongodb';
 
 const userCache: UserCache = new UserCache();
 
 export class SignUp {
   @joiValidation(signupSchema)
   public async create(req: Request, res: Response): Promise<void> {
-    const { username, email, password, avatarColor, avatarImage } = req.body;
+    const { username, email, password, avatarColor, avatarImage, work } = req.body;
+    console.log(avatarImage);
+
     const checkIfUserExist: IAuthDocument = await authService.getUserByUsernameOrEmail(username, email);
     if (checkIfUserExist) {
       throw new BadRequestError('Invalid credentials');
     }
 
-    const authObjectId: ObjectId = mongooseId.Types.ObjectId();
-    const userObjectId: ObjectId = mongooseId.Types.ObjectId();
+    const authObjectId: ObjectId = new ObjectId();
+    const userObjectId: ObjectId = new ObjectId();
     const uId = `${Helpers.generateRandomIntegers(12)}`;
     const authData: IAuthDocument = SignUp.prototype.signupData({
       _id: authObjectId,
@@ -41,26 +38,25 @@ export class SignUp {
       username,
       email,
       password,
-      avatarColor
+      avatarColor,
+      work
     });
+    console.log(avatarImage);
     const result: UploadApiResponse = (await uploads(avatarImage, `${userObjectId}`, true, true)) as UploadApiResponse;
-    // if (!result?.public_id) {
-    //   throw new BadRequestError('File upload: Error occurred. Try again.');
-    // }
+    if (!result?.public_id) {
+      throw new BadRequestError('File upload: Error occurred. Try again.');
+    }
 
-    // Add to redis cache
     const userDataForCache: IUserDocument = SignUp.prototype.userData(authData, userObjectId);
-    userDataForCache.profilePicture = `https://res.cloudinary.com/dyamr9ym3/image/upload/v${result.version}/${userObjectId}`;
+    userDataForCache.work = work
+    userDataForCache.profilePicture = `https://res.cloudinary.com/wecare-img/image/upload/v${result.version}/${userObjectId}`;
     await userCache.saveUserToCache(`${userObjectId}`, uId, userDataForCache);
 
-    // Add to database
-    omit(userDataForCache, ['uId', 'username', 'email', 'avatarColor', 'password']);
-    authQueue.addAuthUserJob('addAuthUserToDB', { value: userDataForCache });
+    authQueue.addAuthUserJob('addAuthUserToDB', { value: authData });
     userQueue.addUserJob('addUserToDB', { value: userDataForCache });
 
     const userJwt: string = SignUp.prototype.signToken(authData, userObjectId);
     req.session = { jwt: userJwt };
-
     res.status(HTTP_STATUS.CREATED).json({ message: 'User created successfully', user: userDataForCache, token: userJwt });
   }
 
@@ -111,6 +107,9 @@ export class SignUp {
       bgImageId: '',
       followersCount: 0,
       followingCount: 0,
+      healthFunds: [],
+      insuranceCompanies: [],
+      Summary: '',
       postsCount: 0,
       notifications: {
         messages: true,

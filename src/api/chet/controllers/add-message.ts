@@ -70,15 +70,15 @@ export class Add {
     };
     Add.prototype.emitSocketIOEvent(messageData);
 
-    if (!isRead) {
-      Add.prototype.messageNotification({
-        currentUser: req.currentUser!,
-        message: body,
-        receiverName: receiverUsername,
-        receiverId,
-        messageData
-      });
-    }
+    // if (!isRead) {
+    //   Add.prototype.messageNotification({
+    //     currentUser: req.currentUser!,
+    //     message: body,
+    //     receiverName: receiverUsername,
+    //     receiverId,
+    //     messageData
+    //   });
+    // }
 
     await messageCache.addChatListToCache(`${req.currentUser!.userId}`, `${receiverId}`, `${conversationObjectId}`);
     await messageCache.addChatListToCache(`${receiverId}`, `${req.currentUser!.userId}`, `${conversationObjectId}`);

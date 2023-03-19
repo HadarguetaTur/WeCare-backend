@@ -2,7 +2,8 @@ import { IBasicInfo, INotificationSettings, ISearchUser, ISocialLinks, IUserDocu
 import { UserModel } from "src/api/user/models/user.schema";
 import mongoose from 'mongoose';
 import { AuthModel } from "src/api/auth/models/auth.schema";
-
+import { followerService } from "./followers.service";
+import { indexOf } from "lodash";
 
 
 class UserService {
@@ -48,6 +49,8 @@ class UserService {
       { $unwind: '$authId' },
       { $project: this.aggregateProject() }
     ]);
+    console.log(users[0]);
+    
     return users[0];
   }
 
@@ -67,7 +70,7 @@ class UserService {
       { $skip: skip },
       { $limit: limit },
       { $sort: { createdAt: -1 } },
-      { $lookup: { from: 'Auth', localField: 'authId', foreignField: '_id', as: 'authId' } },
+      { $lookup: { from: 'Auth', localField: 'authId', foreignField: 'authId', as: 'authId' } },
       { $unwind: '$authId' },
       { $project: this.aggregateProject() }
     ]);
@@ -97,6 +100,14 @@ class UserService {
         }
       }
     ]);
+    const followers: string[] = await followerService.getFolloweesIds(`${userId}`);
+    for (const user of users) {
+      const followerIndex = indexOf(followers, user._id.toString());
+      if (followerIndex < 0) {
+        randomUsers.push(user);
+      }
+    }
+    
     return randomUsers;
   }
 

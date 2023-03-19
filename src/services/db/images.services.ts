@@ -3,6 +3,7 @@ import { ImageModel } from 'src/api/images/models/image.modal';
 import { UserModel } from 'src/api/user/models/user.schema';
 import mongoose from 'mongoose';
 
+
 class ImageService {
   public async addUserProfileImageToDB(userId: string, url: string, imgId: string, imgVersion: string): Promise<void> {
     await UserModel.updateOne({ _id: userId }, { $set: { profilePicture: url } }).exec();

@@ -4,8 +4,6 @@ import { Request,Response } from "express";
 import { userService } from "src/services/db/user.service";
 import HTTP_STATUS from 'http-status-codes'
 
-
-
 const userCache: UserCache = new UserCache();
 
 export class CurrentUser {
@@ -18,7 +16,10 @@ export class CurrentUser {
     if (Object.keys(existingUser).length) {
       isUser = true;
       token = req.session?.jwt;
-      user = existingUser;
+      user ={
+        ...req.currentUser,
+        ...existingUser
+      }
     }
     res.status(HTTP_STATUS.OK).json({ token, isUser, user });
   }

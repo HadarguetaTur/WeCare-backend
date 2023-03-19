@@ -38,6 +38,8 @@ export class PostCache extends BaseCache {
         commentsCount,
         imgVersion,
         imgId,
+        videoVersion,
+        videoId,
         reactions,
         createdAt
       } } = data;
@@ -72,6 +74,10 @@ export class PostCache extends BaseCache {
       ['imgVersion',
       `${imgVersion}`],
      [ 'imgId',
+      `${imgId}`],
+      ['videoVersion',
+      `${imgVersion}`],
+     [ 'videoId',
       `${imgId}`],
       ['createdAt',
       `${createdAt}`]
@@ -169,7 +175,7 @@ export class PostCache extends BaseCache {
         await this.client.connect();
       }
 
-      const reply: string[] = await this.client.ZRANGE(key, uId, uId, { REV: true, BY: 'SCORE' });
+      const reply: string[] = await this.client.ZRANGE(key, uId, uId);
       const multi: ReturnType<typeof this.client.multi> = this.client.multi();
       for (const value of reply) {
         multi.HGETALL(`posts:${value}`);
