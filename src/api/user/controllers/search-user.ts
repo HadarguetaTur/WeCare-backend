@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import HTTP_STATUS from 'http-status-codes';
-import { Helpers } from 'src/utils/helpers';
-import { userService } from 'src/services/db/user.service';
-import { ISearchUser } from '../interfaces/user.interface';
+import { Helpers } from '@utils/helpers';
+import { userService } from '@service/db/user.service';
+import { ISearchUser } from '@user/interfaces/user.interface';
 
 export class Search {
   public async user(req: Request, res: Response): Promise<void> {

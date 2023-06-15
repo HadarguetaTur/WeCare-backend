@@ -1,15 +1,15 @@
-import { ICommentDocument, ICommentJob, ICommentNameList, IQueryComment } from '../../api/comments/interfaces/comment.interface';
-import { CommentsModel } from 'src/api/comments/models/comment.modal';
-import { IPostDocument } from 'src/api/post/interfaces/post.interface';
-import { PostModel } from 'src/api/post/models/post.schema';
+import { ICommentDocument, ICommentJob, ICommentNameList, IQueryComment } from '@comment/interfaces/comment.interface';
+import { CommentsModel } from '@comment/models/comment.modal';
+import { IPostDocument } from '@post/interfaces/post.interface';
+import { PostModel } from '@post/models/post.schema';
 import mongoose, { Query } from 'mongoose';
-import { UserCache } from '../redis/user.cache';
-import { IUserDocument } from 'src/api/user/interfaces/user.interface';
-import { NotificationModel } from 'src/api/notificartions/models/notifications.schema';
-import { INotificationDocument, INotificationTemplate } from 'src/api/notificartions/interfaces/notifications.interface';
-import { emailQueue } from '../queues/email.queue';
-import { notificationTemplate } from '../emails/templates/notifications/notification-templet';
-import { socketIONotificationObject } from '../sockets/notifications.socet';
+import { UserCache } from '@service/redis/user.cache';
+import { IUserDocument } from '@user/interfaces/user.interface';
+import { NotificationModel } from '@notification/models/notifications.schema';
+import { INotificationDocument, INotificationTemplate } from '@notification/interfaces/notifications.interface';
+import { emailQueue } from '@service/queues/email.queue';
+import { notificationTemplate } from '@service/emails/templates/notifications/notification-templet';
+import { socketIONotificationObject } from '@socket/notifications.socet';
 
 const userCache: UserCache = new UserCache();
 

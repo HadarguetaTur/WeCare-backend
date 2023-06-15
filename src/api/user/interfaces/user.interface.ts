@@ -1,8 +1,8 @@
 import mongoose, { Document } from 'mongoose';
-import  {ObjectId} from 'mongodb';
+import { ObjectId } from 'mongodb';
 
 export interface IUserDocument extends Document {
-  field1:string | Object;
+  field1: string | Object;
   _id: string | ObjectId;
   authId: string | ObjectId;
   username?: string;
@@ -25,6 +25,10 @@ export interface IUserDocument extends Document {
   bgImageId: string;
   profilePicture: string;
   createdAt?: Date;
+  meetingPrice: string,
+  userType: string,
+  isHealthFundsAgreed: string,
+  isInsuranceAgreed: string
 }
 
 export interface IResetPasswordParams {
@@ -46,6 +50,10 @@ export interface IBasicInfo {
   work: string;
   school: string;
   location: string;
+  isHealthFundsAgreed: string;
+  isInsuranceAgreed:string,
+  userType:string,
+  meetingPrice:string
 }
 
 export interface ISocialLinks {

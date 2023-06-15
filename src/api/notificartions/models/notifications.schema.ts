@@ -1,5 +1,5 @@
-import { INotificationDocument, INotification } from '../interfaces/notifications.interface';
-import { notificationService } from 'src/services/db/notifications.service';
+import { INotificationDocument, INotification } from '@notification/interfaces/notifications.interface';
+import { notificationService } from '@service/db/notifications.service';
 import mongoose, { model, Model, Schema } from 'mongoose';
 
 const notificationSchema: Schema = new Schema({

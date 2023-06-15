@@ -1,19 +1,16 @@
 import { Request, Response } from 'express';
 import HTTP_STATUS from 'http-status-codes';
-
-import { PostCache } from 'src/services/redis/post.cache';
-import { UserCache } from 'src/services/redis/user.cache';
-import { IAllUsers, IUserDocument } from '../interfaces/user.interface';
-import { userService } from 'src/services/db/user.service';
-
-
+import { PostCache } from '@service/redis/post.cache';
+import { UserCache } from '@service/redis/user.cache';
+import { IAllUsers, IUserDocument } from '@user/interfaces/user.interface';
+import { userService } from '@service/db/user.service';
 import mongoose from 'mongoose';
-import { Helpers } from 'src/utils/helpers';
-import { IPostDocument } from 'src/api/post/interfaces/post.interface';
-import { postService } from 'src/services/db/post.service';
-import { IFollowerData } from 'src/api/followers/interfaces/followers.interface';
-import { FollowerCache } from 'src/services/redis/followers.cache';
-import { followerService } from 'src/services/db/followers.service';
+import { Helpers } from '@utils/helpers';
+import { IPostDocument } from '@post/interfaces/post.interface';
+import { postService } from '@service/db/post.service';
+import { IFollowerData } from '@follower/interfaces/followers.interface';
+import { FollowerCache } from '@service/redis/followers.cache';
+import { followerService } from '@service/db/followers.service';
 
 const PAGE_SIZE = 12;
 
@@ -54,6 +51,9 @@ export class Get {
     const { userId } = req.params;
     const cachedUser: IUserDocument = (await userCache.getUserFromCache(userId)) as IUserDocument;
     const existingUser: IUserDocument = cachedUser ? cachedUser : await userService.getUserById(userId);
+  console.log(existingUser);
+  
+   
     res.status(HTTP_STATUS.OK).json({ message: 'Get user profile by id', user: existingUser });
   }
 

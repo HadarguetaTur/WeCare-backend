@@ -2,9 +2,9 @@ import { Request, Response } from 'express';
 import { ObjectId } from 'mongodb';
 import HTTP_STATUS from 'http-status-codes';
 import mongoose from 'mongoose';
-import { FollowerCache } from 'src/services/redis/followers.cache';
-import { IFollowerData } from '../interfaces/followers.interface';
-import { followerService } from 'src/services/db/followers.service';
+import { FollowerCache } from '@service/redis/followers.cache';
+import { IFollowerData } from '@follower/interfaces/followers.interface';
+import { followerService } from '@service/db/followers.service';
 
 const followerCache: FollowerCache = new FollowerCache();
 

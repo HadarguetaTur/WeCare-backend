@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 import HTTP_STATUS from 'http-status-codes';
 import mongoose from 'mongoose';
-import { MessageCache } from 'src/services/redis/message.cache';
-import { IMessageData } from '../interfaces/chet.interface';
-import { socketIOChatObject } from 'src/services/sockets/chet.sockets';
-import { chatQueue } from 'src/services/queues/chet.queue';
-import { joiValidation } from 'src/utils/joi-validation.decorators';
-import { markChatSchema } from '../schemes/chet.schemes';
+import { MessageCache } from '@service/redis/message.cache';
+import { IMessageData } from '@chet/interfaces/chet.interface';
+import { socketIOChatObject } from '@socket/chet.sockets';
+import { chatQueue } from '@service/queues/chet.queue';
+import { joiValidation } from '@utils/joi-validation.decorators';
+import { markChatSchema } from '@chet/schemes/chet.schemes';
 
 const messageCache: MessageCache = new MessageCache();
 

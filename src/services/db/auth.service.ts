@@ -1,6 +1,6 @@
-import { IAuthDocument } from "src/api/auth/interfaces/auth.interface";
-import { AuthModel } from "src/api/auth/models/auth.schema";
-import { Helpers } from "src/utils/helpers";
+import { IAuthDocument } from "@auth/interfaces/auth.interface";
+import { AuthModel } from "@auth/models/auth.schema";
+import { Helpers } from "@utils/helpers";
 
 
 class AuthService {

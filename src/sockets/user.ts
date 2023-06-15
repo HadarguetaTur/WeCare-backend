@@ -1,4 +1,4 @@
-import { ILogin,ISocketData } from 'src/api/user/interfaces/user.interface';
+import { ILogin, ISocketData } from "@user/interfaces/user.interface";
 import { Server, Socket } from 'socket.io';
 
 export let socketIOUserObject: Server;

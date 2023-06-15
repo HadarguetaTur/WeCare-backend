@@ -1,4 +1,4 @@
-import { IFollowers } from 'src/api/followers/interfaces/followers.interface';
+import { IFollowers } from "@follower/interfaces/followers.interface";
 import { Server, Socket } from 'socket.io';
 
 export let socketIOFollowerObject: Server;

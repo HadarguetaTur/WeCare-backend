@@ -1,8 +1,8 @@
 import express, { Router } from 'express';
-import { authMiddleware } from 'src/middlewares/auth-middelware';
-import { Add } from '../controllers/add-images';
-import { Delete } from '../controllers/delete-image';
-import { Get } from '../controllers/get-images';
+import { authMiddleware } from '@middlewares/auth-middelware';
+import { Add } from '@image/controllers/add-images';
+import { Delete } from '@image/controllers/delete-image';
+import { Get } from '@image/controllers/get-images';
 
 class ImageRoutes {
   private router: Router;

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { PushOperator } from 'mongodb';
-import { UserModel } from 'src/api/user/models/user.schema';
+import { UserModel } from '@user/models/user.schema';
 
 class BlockUserService {
   public async blockUser(userId: string, followerId: string): Promise<void> {

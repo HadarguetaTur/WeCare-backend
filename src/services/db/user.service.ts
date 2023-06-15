@@ -1,9 +1,9 @@
-import { IBasicInfo, INotificationSettings, ISearchUser, ISocialLinks, IUserDocument } from "src/api/user/interfaces/user.interface";
-import { UserModel } from "src/api/user/models/user.schema";
+import { UserModel } from "@user/models/user.schema";
 import mongoose from 'mongoose';
-import { AuthModel } from "src/api/auth/models/auth.schema";
+import { AuthModel } from "@auth/models/auth.schema";
 import { followerService } from "./followers.service";
 import { indexOf } from "lodash";
+import { IBasicInfo, INotificationSettings, ISearchUser, ISocialLinks, IUserDocument } from "@user/interfaces/user.interface";
 
 
 class UserService {
@@ -23,7 +23,11 @@ class UserService {
           work: info['work'],
           school: info['school'],
           quote: info['quote'],
-          location: info['location']
+          location: info['location'],
+          isHealthFundsAgreed:info['isHealthFundsAgreed'],
+          isInsuranceAgreed:info['isInsuranceAgreed'],
+          userType: info['userType'],
+          meetingPrice: info['meetingPrice'],
         }
       }
     ).exec();
@@ -49,7 +53,7 @@ class UserService {
       { $unwind: '$authId' },
       { $project: this.aggregateProject() }
     ]);
-    console.log(users[0]);
+    console.log(users[0],'llllllllllllllllllllll');
     
     return users[0];
   }
@@ -142,6 +146,10 @@ class UserService {
       email: '$authId.email',
       avatarColor: '$authId.avatarColor',
       createdAt: '$authId.createdAt',
+      isHealthFundsAgreed:'$authId.isHealthFundsAgreed',
+      isInsuranceAgreed:'$authId.isInsuranceAgreed',
+      userType: 'authId.userType',
+      meetingPrice: 'authId.meetingPrice',
       postsCount: 1,
       work: 1,
       school: 1,

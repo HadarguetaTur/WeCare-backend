@@ -1,9 +1,9 @@
 import express, { Router } from 'express';
-import { authMiddleware } from 'src/middlewares/auth-middelware';
-import { Create } from '../controllers/create.post';
-import { Add } from '../controllers/add.post';
-import { Delete } from '../controllers/delete.post';
-import { Update } from '../controllers/update.post';
+import { authMiddleware } from '@middlewares/auth-middelware';
+import { Create } from '@post/controllers/create.post';
+import { Add } from '@post/controllers/add.post';
+import { Delete } from '@post/controllers/delete.post';
+import { Update } from '@post/controllers/update.post';
 
 class PostRoutes {
   private router: Router;

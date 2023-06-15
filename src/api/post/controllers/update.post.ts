@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
-import { PostCache } from 'src/services/redis/post.cache';
+import { PostCache } from '@service/redis/post.cache';
 import HTTP_STATUS from 'http-status-codes';
-import { postQueue } from 'src/services/queues/post.queue';
-import { socketIOPostObject } from 'src/services/sockets/post.sokets';
-import { joiValidation } from 'src/utils/joi-validation.decorators';
-import { postSchema, postWithImageSchema } from '../schemes/post';
-import { IPostDocument } from '../interfaces/post.interface';
+import { postQueue } from '@service/queues/post.queue';
+import { socketIOPostObject } from '@socket/post.sokets';
+import { joiValidation } from '@utils/joi-validation.decorators';
+import { postSchema , postWithImageSchema } from '@post/schemes/post';
+import { IPostDocument } from '@post/interfaces/post.interface';
 import { UploadApiResponse } from 'cloudinary';
-import { uploads } from 'src/utils/cloudinary-upload';
-import { BadRequestError } from 'src/utils/error-handler';
+import { uploads } from '@utils/cloudinary-upload';
+import { BadRequestError } from '@utils/error-handler';
 
 const postCache: PostCache = new PostCache();
 

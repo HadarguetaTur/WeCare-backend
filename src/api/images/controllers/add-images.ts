@@ -1,17 +1,16 @@
 import { Request, Response } from 'express';
 import HTTP_STATUS from 'http-status-codes';
-import { UserCache } from 'src/services/redis/user.cache';
-import { joiValidation } from 'src/utils/joi-validation.decorators';
-import { addImageSchema } from '../schemes/images.schema';
-import { uploads } from 'src/utils/cloudinary-upload';
+import { UserCache } from '@service/redis/user.cache';
+import { joiValidation } from '@utils/joi-validation.decorators';
+import { addImageSchema } from '@image/schemes/images.schema';
+import { uploads } from '@utils/cloudinary-upload';
 import { UploadApiResponse } from 'cloudinary';
-import { BadRequestError } from 'src/utils/error-handler';
-import { IUserDocument } from 'src/api/user/interfaces/user.interface';
-import { socketIOImageObject } from 'src/services/sockets/image.socets';
-import { imageQueue } from 'src/services/queues/image.queue';
-import { IBgUploadResponse } from '../interfaces/image.interface';
-import { Helpers } from 'src/utils/helpers';
-import { userService } from 'src/services/db/user.service';
+import { BadRequestError } from '@utils/error-handler';
+import { IUserDocument } from '@user/interfaces/user.interface';
+import { socketIOImageObject } from '@socket/image.socets';
+import { imageQueue } from '@service/queues/image.queue';
+import { IBgUploadResponse } from '@image/interfaces/image.interface';
+import { Helpers } from '@utils/helpers';
 
 const userCache: UserCache = new UserCache();
 
@@ -28,11 +27,6 @@ export class Add {
       'profilePicture',
       url
     )) as IUserDocument;
-    const user: IUserDocument = await userService.getUserByAuthId(`${req.currentUser!.userId}`);
-    const userDocument: IUserDocument = {
-      ...user,
-      ...cachedUser
-    } as IUserDocument;
     socketIOImageObject.emit('update user', cachedUser);
     imageQueue.addImageJob('addUserProfileImageToDB', {
       key: `${req.currentUser!.userId}`,
@@ -40,7 +34,7 @@ export class Add {
       imgId: result.public_id,
       imgVersion: result.version.toString()
     });
-    res.status(HTTP_STATUS.OK).json({ message: 'Image added successfully', user: userDocument });
+    res.status(HTTP_STATUS.OK).json({ message: 'Image added successfully' });
   }
 
   @joiValidation(addImageSchema)

@@ -1,4 +1,4 @@
-import { ISenderReceiver } from 'src/api/chet/interfaces/chet.interface';
+import { ISenderReceiver } from '@chet/interfaces/chet.interface';
 import { Server, Socket } from 'socket.io';
 import { connectedUsersMap } from './user';
 

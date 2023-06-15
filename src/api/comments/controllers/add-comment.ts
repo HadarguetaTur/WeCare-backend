@@ -1,12 +1,11 @@
 import { Request, Response } from 'express';
 import { ObjectId } from 'mongodb';
 import HTTP_STATUS from 'http-status-codes';
-import { joiValidation } from 'src/utils/joi-validation.decorators';
-import { addCommentSchema } from '../schemes/comments.schema';
-import { ICommentDocument, ICommentJob } from '../interfaces/comment.interface';
-import { CommentCache } from 'src/services/redis/comments.cache';
-import { commentQueue } from 'src/services/queues/comment.queue';
-
+import { joiValidation } from '@utils/joi-validation.decorators';
+import { addCommentSchema } from '@comment/schemes/comments.schema';
+import { ICommentDocument, ICommentJob } from '@comment/interfaces/comment.interface';
+import { CommentCache } from '@service/redis/comments.cache';
+import { commentQueue } from '@service/queues/comment.queue';
 const commentCache: CommentCache = new CommentCache();
 
 export class Add {

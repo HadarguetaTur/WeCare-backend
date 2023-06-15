@@ -1,17 +1,17 @@
-import { Helpers } from 'src/utils/helpers';
-import { IPostDocument } from 'src/api/post/interfaces/post.interface';
-import { PostModel } from 'src/api/post/models/post.schema';
-import { IQueryReaction, IReactionDocument, IReactionJob } from 'src/api/reactions/interfaces/reactions.interface';
-import { ReactionModel } from 'src/api/reactions/models/reaction.modal';
-import { UserCache } from '../redis/user.cache';
+import { Helpers } from '@utils/helpers';
+import { IPostDocument } from '@post/interfaces/post.interface';
+import { PostModel } from '@post/models/post.schema';
+import { IQueryReaction, IReactionDocument, IReactionJob  } from '@reaction/interfaces/reactions.interface';
+import { ReactionModel } from '@reaction/models/reaction.modal';
+import { UserCache } from '@service/redis/user.cache';
 import { IUserDocument } from 'src/api/user/interfaces/user.interface';
 import { omit } from 'lodash';
 import mongoose from 'mongoose';
-import { notificationTemplate } from '../emails/templates/notifications/notification-templet';
-import { emailQueue } from '../queues/email.queue';
-import { socketIONotificationObject } from '../sockets/notifications.socet';
-import { INotificationDocument, INotificationTemplate } from 'src/api/notificartions/interfaces/notifications.interface';
-import { NotificationModel } from 'src/api/notificartions/models/notifications.schema';
+import { notificationTemplate } from '@service/emails/templates/notifications/notification-templet';
+import { emailQueue } from '@service/queues/email.queue';
+import { socketIONotificationObject } from '@socket/notifications.socet';
+import { NotificationModel } from '@notification/models/notifications.schema';
+import { INotificationDocument, INotificationTemplate } from '@notification/interfaces/notifications.interface';
 
 
 const userCache: UserCache = new UserCache();

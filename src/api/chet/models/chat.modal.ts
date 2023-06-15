@@ -1,5 +1,5 @@
 import mongoose, { Model, model, Schema } from 'mongoose';
-import { IMessageDocument } from '../interfaces/chet.interface';
+import { IMessageDocument } from '@chet/interfaces/chet.interface';
 
 const messageSchema: Schema = new Schema({
   conversationId: { type: mongoose.Schema.Types.ObjectId, ref: 'Conversation' },

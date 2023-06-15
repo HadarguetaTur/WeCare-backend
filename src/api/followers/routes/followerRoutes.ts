@@ -1,9 +1,9 @@
 import express, { Router } from 'express';
-import { authMiddleware } from 'src/middlewares/auth-middelware';
-import { Add } from '../controllers/followers';
-import { Remove } from '../controllers/unfollow';
-import { Get } from '../controllers/get';
-import { AddUser } from '../controllers/block';
+import { authMiddleware } from '@middlewares/auth-middelware';
+import { Add } from '@follower/controllers/followers';
+import { Remove } from '@follower/controllers/unfollow';
+import { Get } from '@follower/controllers/get';
+import { AddUser } from '@follower/controllers/block';
 
 class FollowerRoutes {
   private router: Router;

@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
 import { ObjectId } from 'mongodb';
 import HTTP_STATUS from 'http-status-codes';
-import { FollowerCache } from 'src/services/redis/followers.cache';
-import { UserCache } from 'src/services/redis/user.cache';
-import { IUserDocument } from 'src/api/user/interfaces/user.interface';
-import { IFollowerData } from '../interfaces/followers.interface';
+import { FollowerCache } from '@service/redis/followers.cache';
+import { UserCache } from '@service/redis/user.cache';
+import { IUserDocument } from '@user/interfaces/user.interface';
+import { IFollowerData } from '@follower/interfaces/followers.interface';
 import mongoose from 'mongoose';
-import { socketIOFollowerObject } from 'src/services/sockets/followers.socets';
-import { followerQueue } from 'src/services/queues/followers.queue';
+import { socketIOFollowerObject } from '@socket/followers.socets';
+import { followerQueue } from '@service/queues/followers.queue';
 
 const followerCache: FollowerCache = new FollowerCache();
 const userCache: UserCache = new UserCache();

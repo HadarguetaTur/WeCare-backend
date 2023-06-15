@@ -1,7 +1,7 @@
-import { IUserDocument } from "src/api/user/interfaces/user.interface";
-import { UserCache } from "src/services/redis/user.cache";
+import { IUserDocument } from "@user/interfaces/user.interface";
+import { UserCache } from "@service/redis/user.cache";
 import { Request,Response } from "express";
-import { userService } from "src/services/db/user.service";
+import { userService } from "@service/db/user.service";
 import HTTP_STATUS from 'http-status-codes'
 
 const userCache: UserCache = new UserCache();

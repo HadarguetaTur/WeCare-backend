@@ -1,5 +1,5 @@
-import { INotificationDocument } from 'src/api/notificartions/interfaces/notifications.interface';
-import { NotificationModel } from 'src/api/notificartions/models/notifications.schema';
+import { INotificationDocument } from '@notification/interfaces/notifications.interface';
+import { NotificationModel } from '@notification/models/notifications.schema';
 import mongoose from 'mongoose';
 
 class NotificationService {

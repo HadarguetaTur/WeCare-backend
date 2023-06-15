@@ -1,5 +1,5 @@
-import { IFileImageDocument } from '../interfaces/image.interface';
-import { imageService } from 'src/services/db/images.services';
+import { IFileImageDocument } from '@image/interfaces/image.interface';
+import { imageService } from '@service/db/images.services';
 import { Request, Response } from 'express';
 import HTTP_STATUS from 'http-status-codes';
 

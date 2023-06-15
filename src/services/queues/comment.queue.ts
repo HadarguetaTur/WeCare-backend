@@ -1,6 +1,6 @@
-import { ICommentJob } from 'src/api/comments/interfaces/comment.interface';
+import { ICommentJob } from '@comment/interfaces/comment.interface';
 import { BaseQueue } from './base.queue';
-import { commentWorker } from 'src/workers/comments.worker';
+import { commentWorker } from '@worker/comments.worker';
 
 class CommentQueue extends BaseQueue {
   constructor() {

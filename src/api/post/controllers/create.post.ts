@@ -1,15 +1,15 @@
-import { joiValidation } from 'src/utils/joi-validation.decorators';
-import { postSchema, postWithImageSchema } from '../schemes/post';
+import { joiValidation } from '@utils/joi-validation.decorators';
+import { postSchema, postWithImageSchema } from '@post/schemes/post';
 import { Request, Response } from 'express';
 import { ObjectId } from 'mongodb';
 import HTTP_STATUS from 'http-status-codes';
-import { IPostDocument } from '../interfaces/post.interface';
-import { PostCache } from 'src/services/redis/post.cache';
-import { socketIOPostObject } from 'src/services/sockets/post.sokets';
-import { postQueue } from 'src/services/queues/post.queue';
+import { IPostDocument } from '@post/interfaces/post.interface';
+import { PostCache } from '@service/redis/post.cache';
+import { socketIOPostObject } from '@socket/post.sokets';
+import { postQueue } from '@service/queues/post.queue';
 import { UploadApiResponse } from 'cloudinary';
-import { uploads } from 'src/utils/cloudinary-upload';
-import { BadRequestError } from 'src/utils/error-handler';
+import { uploads } from '@utils/cloudinary-upload';
+import { BadRequestError } from '@utils/error-handler';
 
 const postCache: PostCache = new PostCache();
 

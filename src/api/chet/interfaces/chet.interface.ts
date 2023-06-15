@@ -1,6 +1,6 @@
 import mongoose, { Document } from 'mongoose';
-import { AuthPayload } from 'src/api/auth/interfaces/auth.interface';
-import { IReaction } from 'src/api/reactions/interfaces/reactions.interface';
+import { AuthPayload } from '@auth/interfaces/auth.interface';
+import { IReaction } from '@reaction/interfaces/reactions.interface';
 
 export interface IMessageDocument extends Document {
   _id: mongoose.Types.ObjectId;

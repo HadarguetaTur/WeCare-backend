@@ -3,14 +3,14 @@ import Logger from 'bunyan';
 import { createBullBoard } from '@bull-board/api';
 import { BullAdapter } from '@bull-board/api/bullAdapter';
 import { ExpressAdapter } from '@bull-board/express';
-import { config } from 'src/config';
-import { IAuthJob } from 'src/api/auth/interfaces/auth.interface';
-import { IEmailJob } from 'src/api/user/interfaces/user.interface';
-import { IPostJobData } from 'src/api/post/interfaces/post.interface';
-import { IReactionJob } from 'src/api/reactions/interfaces/reactions.interface';
-import { ICommentJob } from 'src/api/comments/interfaces/comment.interface';
-import { IBlockedUserJobData, IFollowerJobData } from 'src/api/followers/interfaces/followers.interface';
-import { IChatJobData, IMessageData } from 'src/api/chet/interfaces/chet.interface';
+import { config } from '@root/config';
+import { IAuthJob } from '@auth/interfaces/auth.interface';
+import { IEmailJob } from '@user/interfaces/user.interface';
+import { IPostJobData } from '@post/interfaces/post.interface';
+import { IReactionJob } from '@reaction/interfaces/reactions.interface';
+import { ICommentJob } from '@comment/interfaces/comment.interface';
+import { IBlockedUserJobData, IFollowerJobData } from '@follower/interfaces/followers.interface';
+import { IChatJobData, IMessageData } from '@chet/interfaces/chet.interface';
 
 type IBaseJobData = IAuthJob | IEmailJob | IPostJobData | IReactionJob | ICommentJob | IFollowerJobData | IBlockedUserJobData | IChatJobData | IMessageData;
 

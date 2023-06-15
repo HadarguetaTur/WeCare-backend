@@ -1,10 +1,10 @@
 import express, { Router } from 'express';
-import { authMiddleware } from 'src/middlewares/auth-middelware';
-import { Get } from '../controllers/get-user';
-import { Search } from '../controllers/search-user';
-import { Update } from '../controllers/change-password';
-import { Edit } from '../controllers/update-info';
-import { UpdateSettings } from '../controllers/update-setting';
+import { authMiddleware } from '@middlewares/auth-middelware';
+import { Get } from '@user/controllers/get-user';
+import { Search } from '@user/controllers/search-user';
+import { Update } from '@user/controllers/change-password';
+import { Edit } from '@user/controllers/update-info';
+import { UpdateSettings } from '@user/controllers/update-setting';
 
 class UserRoutes {
   private router: Router;
@@ -14,15 +14,15 @@ class UserRoutes {
   }
 
   public routes(): Router {
-    this.router.get('/user/all/:page', authMiddleware.checkAuthentication, Get.prototype.all);
+    this.router.get('/user/all/:page',  Get.prototype.all);
     this.router.get('/user/profile', authMiddleware.checkAuthentication, Get.prototype.profile);
-    this.router.get('/user/profile/:userId', authMiddleware.checkAuthentication, Get.prototype.profileByUserId);
-    this.router.get('/user/profile/posts/:username/:userId/:uId', authMiddleware.checkAuthentication, Get.prototype.profileAndPosts);
+    this.router.get('/user/profile/:userId', Get.prototype.profileByUserId);
+    this.router.get('/user/profile/posts/:username/:userId/:uId',  Get.prototype.profileAndPosts);
     this.router.get('/user/profile/user/suggestions', authMiddleware.checkAuthentication, Get.prototype.randomUserSuggestions);
-    this.router.get('/user/profile/search/:query', authMiddleware.checkAuthentication, Search.prototype.user);
+    this.router.get('/user/profile/search/:query',  Search.prototype.user);
     this.router.put('/user/profile/change-password', authMiddleware.checkAuthentication, Update.prototype.password);
-    this.router.put('/user/profile/basic-info', authMiddleware.checkAuthentication, Edit.prototype.info);
-    this.router.put('/user/profile/social-links', authMiddleware.checkAuthentication, Edit.prototype.social);
+    this.router.put('/user/profile/basic-info',  Edit.prototype.info);
+    this.router.put('/user/profile/social-links',  Edit.prototype.social);
     this.router.put('/user/profile/settings', authMiddleware.checkAuthentication, UpdateSettings.prototype.notification);
 
     return this.router;

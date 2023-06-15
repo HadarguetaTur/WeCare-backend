@@ -12,14 +12,14 @@ import { createAdapter } from '@socket.io/redis-adapter'
 import 'express-async-errors';
 import { config } from './config';
 import routes from './routes'
-import { CustomError, IErrorResponse } from './utils/error-handler';
+import { CustomError,IErrorResponse } from '@utils/error-handler';
 import Logger from 'bunyan';
-import { SocketIOPostHandler } from './services/sockets/post.sokets';
-import { SocketIONotificationHandler } from './services/sockets/notifications.socet';
-import { SocketIOFollowerHandler } from './services/sockets/followers.socets';
-import { SocketIOImageHandler } from './services/sockets/image.socets';
-import { SocketIOChatHandler } from './services/sockets/chet.sockets';
-import { SocketIOUserHandler } from './services/sockets/user';
+import { SocketIOPostHandler } from '@socket/post.sokets';
+import { SocketIONotificationHandler } from '@socket/notifications.socet';
+import { SocketIOFollowerHandler } from '@socket/followers.socets';
+import { SocketIOImageHandler } from '@socket/image.socets';
+import { SocketIOChatHandler } from '@socket/chet.sockets';
+import { SocketIOUserHandler } from '@socket/user';
 
 const SERVER_PORT = 5000;
 const log: Logger = config.createLogger('server');

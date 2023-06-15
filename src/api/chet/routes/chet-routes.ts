@@ -1,10 +1,10 @@
 import express, { Router } from 'express';
-import { authMiddleware } from 'src/middlewares/auth-middelware';
-import { Add } from '../controllers/add-message';
-import { Get } from '../controllers/get-massage';
-import { Delete } from '../controllers/delet-massage';
-import { Update } from '../controllers/update-massege';
-import { Message } from '../controllers/add-reaction';
+import { authMiddleware } from '@middlewares/auth-middelware';
+import { Add } from '@chet/controllers/add-message';
+import { Get } from '@chet/controllers/get-massage';
+import { Delete } from '@chet/controllers/delet-massage';
+import { Update } from '@chet/controllers/update-massege';
+import { Message } from '@chet/controllers/add-reaction';
 
 class ChatRoutes {
   private router: Router;

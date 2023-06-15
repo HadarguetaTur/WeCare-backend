@@ -1,17 +1,17 @@
-import { FollowerModel } from 'src/api/followers/models/followers.model';
-import { UserModel } from 'src/api/user/models/user.schema';
+import { FollowerModel } from '@follower/models/followers.model';
+import { UserModel } from '@user/models/user.schema';
 import { ObjectId, BulkWriteResult } from 'mongodb';
 import mongoose, { Query } from 'mongoose';
-import { IFollowerData, IFollowerDocument } from '../../api/followers/interfaces/followers.interface';
-import { IQueryDeleted, IQueryComplete } from '../../api/post/interfaces/post.interface';
-import { UserCache } from '../redis/user.cache';
-import { socketIONotificationObject } from '../sockets/notifications.socet';
-import { INotificationDocument, INotificationTemplate } from 'src/api/notificartions/interfaces/notifications.interface';
-import { notificationTemplate } from '../emails/templates/notifications/notification-templet';
-import { IUserDocument } from 'src/api/user/interfaces/user.interface';
-import { NotificationModel } from 'src/api/notificartions/models/notifications.schema';
+import { IFollowerData, IFollowerDocument } from '@follower/interfaces/followers.interface';
+import { IQueryDeleted, IQueryComplete } from '@post/interfaces/post.interface';
+import { UserCache } from '@service/redis/user.cache';
+import { socketIONotificationObject } from '@socket/notifications.socet';
+import { INotificationDocument, INotificationTemplate } from '@notification/interfaces/notifications.interface';
+import { notificationTemplate } from '@service/emails/templates/notifications/notification-templet';
+import { IUserDocument } from '@user/interfaces/user.interface';
+import { NotificationModel } from '@notification/models/notifications.schema';
 import { map } from 'lodash';
-import { emailQueue } from '../queues/email.queue';
+import { emailQueue } from '@service/queues/email.queue';
 
 const userCache: UserCache = new UserCache();
 

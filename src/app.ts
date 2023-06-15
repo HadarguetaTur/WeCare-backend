@@ -1,5 +1,5 @@
 import express, {Express} from 'express'
-import { WecareServer } from './server'
+import { WecareServer } from './server';
 import databaseConnection from "./data/setupDatabase";
 import { config } from './config';
 

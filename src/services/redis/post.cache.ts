@@ -1,10 +1,10 @@
 import { BaseCache } from './base.cache';
 import Logger from 'bunyan';
-import { config } from 'src/config';
-import { ServerError } from 'src/utils/error-handler';
-import { ISavePostToCache, IPostDocument } from '../../api/post/interfaces/post.interface';
-import { IReactions } from 'src/api/reactions/interfaces/reactions.interface';
-import { Helpers } from 'src/utils/helpers';
+import { config } from '@root/config';
+import { ServerError } from '@utils/error-handler';
+import { ISavePostToCache, IPostDocument } from '@post/interfaces/post.interface';
+import { IReactions } from '@reaction/interfaces/reactions.interface';
+import { Helpers } from '@utils/helpers';
 import { RedisCommandRawReply } from '@redis/client/dist/lib/commands';
 
 
@@ -46,41 +46,41 @@ export class PostCache extends BaseCache {
 
     const dataToSave: any[] = [
       ['_id',
-      `${_id}`],
-     [ 'userId',
-      `${userId}`],
+        `${_id}`],
+      ['userId',
+        `${userId}`],
       ['username',
-      `${username}`],
+        `${username}`],
       ['email',
-      `${email}`],
+        `${email}`],
       ['avatarColor',
-      `${avatarColor}`],
+        `${avatarColor}`],
       ['profilePicture',
-      `${profilePicture}`],
+        `${profilePicture}`],
       ['post',
-      `${post}`],
+        `${post}`],
       ['bgColor',
-      `${bgColor}`],
+        `${bgColor}`],
       ['feelings',
-      `${feelings}`],
+        `${feelings}`],
       ['privacy',
-      `${privacy}`],
+        `${privacy}`],
       ['gifUrl',
-      `${gifUrl}`],
+        `${gifUrl}`],
       ['commentsCount',
-      `${commentsCount}`],
+        `${commentsCount}`],
       ['reactions',
-      JSON.stringify(reactions)],
+        JSON.stringify(reactions)],
       ['imgVersion',
-      `${imgVersion}`],
-     [ 'imgId',
-      `${imgId}`],
+        `${imgVersion}`],
+      ['imgId',
+        `${imgId}`],
       ['videoVersion',
-      `${imgVersion}`],
-     [ 'videoId',
-      `${imgId}`],
+        `${imgVersion}`],
+      ['videoId',
+        `${imgId}`],
       ['createdAt',
-      `${createdAt}`]
+        `${createdAt}`]
     ];
 
     try {

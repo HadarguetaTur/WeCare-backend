@@ -1,16 +1,16 @@
 import { Application } from 'express';
-import { authRoutes } from './api/auth/routes/authRoutes';
-import { serverAdapter } from './services/queues/base.queue';
-import { currentUserRoutes } from './api/auth/routes/currentRoutes';
-import { authMiddleware } from './middlewares/auth-middelware';
-import { postRoutes } from './api/post/routes/postRoutes';
-import { reactionRoutes } from './api/reactions/routs/reactions.routes';
-import { commentRoutes } from './api/comments/routes/comment-routs';
-import { notificationRoutes } from './api/notificartions/routes/notificationRoutes';
-import { followerRoutes } from './api/followers/routes/followerRoutes';
-import { imageRoutes } from './api/images/routes/image-routes';
-import { chatRoutes } from './api/chet/routes/chet-routes';
-import { userRoutes } from './api/user/routes/user-routes';
+import { authRoutes } from '@auth/routes/authRoutes';
+import { serverAdapter } from '@service/queues/base.queue';
+import { currentUserRoutes } from '@auth/routes/currentRoutes';
+import { authMiddleware } from '@middlewares/auth-middelware';
+import { postRoutes } from '@post/routes/postRoutes';
+import { reactionRoutes } from '@reaction/routs/reactions.routes';
+import { commentRoutes } from '@comment/routes/comment-routs';
+import { notificationRoutes } from '@notification/routes/notificationRoutes';
+import { followerRoutes } from '@follower/routes/followerRoutes';
+import { imageRoutes } from '@image/routes/image-routes';
+import { chatRoutes } from '@chet/routes/chet-routes';
+import { userRoutes } from '@user/routes/user-routes';
 
 
 const BASE_PATH = '/wecare';

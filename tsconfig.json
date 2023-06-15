@@ -17,6 +17,27 @@
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "pretty": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "plugins": [
+      { "transform": "typescript-transform-paths" },
+      { "transform": "typescript-transform-paths", "afterDeclarations": true },
+    ],
+    "paths": {
+      "@auth/*": ["src/api/auth/*"],
+      "@user/*": ["src/api/user/*"],
+      "@post/*": ["src/api/post/*"],
+      "@reaction/*": ["src/api/reactions/*"],
+      "@comment/*": ["src/api/comments/*"],
+      "@follower/*": ["src/api/followers/*"],
+      "@notification/*": ["src/api/notificartions/*"],
+      "@image/*": ["src/api/images/*"],
+      "@chet/*": ["src/api/chet/*"],
+      "@utils/*": ["src/utils/*"],
+      "@service/*": ["src/services/*"],
+      "@socket/*": ["src/sockets/*"],
+      "@worker/*": ["src/workers/*"],
+      "@middlewares/*": ["src/middlewares/*"],
+      "@root/*": ["src/*"]
+    }
   }
 }

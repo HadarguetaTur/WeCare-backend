@@ -1,11 +1,11 @@
 import { Request, Response } from 'express';
 import HTTP_STATUS from 'http-status-codes';
-import { UserCache } from 'src/services/redis/user.cache';
-import { IUserDocument } from 'src/api/user/interfaces/user.interface';
-import { socketIOImageObject } from 'src/services/sockets/image.socets';
-import { imageQueue } from 'src/services/queues/image.queue';
-import { IFileImageDocument } from '../interfaces/image.interface';
-import { imageService } from 'src/services/db/images.services';
+import { UserCache } from '@service/redis/user.cache';
+import { IUserDocument } from '@user/interfaces/user.interface';
+import { socketIOImageObject } from '@socket/image.socets';
+import { imageQueue } from '@service/queues/image.queue';
+import { IFileImageDocument } from '@image/interfaces/image.interface';
+import { imageService } from '@service/db/images.services';
 
 const userCache: UserCache = new UserCache();
 

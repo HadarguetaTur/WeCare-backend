@@ -1,7 +1,7 @@
 import { Job, DoneCallback } from 'bull';
 import Logger from 'bunyan';
-import { config } from 'src/config';
-import { postService } from 'src/services/db/post.service';
+import { config } from '@root/config';
+import { postService } from '@service/db/post.service';
 
 const log: Logger = config.createLogger('postWorker');
 

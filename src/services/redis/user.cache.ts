@@ -1,11 +1,11 @@
 import { BaseCache } from './base.cache';
-import {  INotificationSettings, ISocialLinks, IUserDocument } from '../../api/user/interfaces/user.interface';
 import Logger from 'bunyan';
 import { indexOf, findIndex } from 'lodash';
-import { config } from 'src/config';
-import { ServerError } from 'src/utils/error-handler';
-import { Helpers } from 'src/utils/helpers';
+import { config } from '@root/config';
+import { ServerError } from '@utils/error-handler';
+import { Helpers } from '@utils/helpers';
 import { RedisCommandRawReply } from '@redis/client/dist/lib/commands';
+import { INotificationSettings, ISocialLinks, IUserDocument } from '@user/interfaces/user.interface';
 
 
 
@@ -20,8 +20,6 @@ export class UserCache extends BaseCache {
 
   public async saveUserToCache(key: string, userUId: string, createdUser: IUserDocument): Promise<void> {
     const createdAt = new Date();
-    console.log(createdUser);
-    
     const {
       _id,
       uId,
@@ -41,7 +39,12 @@ export class UserCache extends BaseCache {
       quote,
       bgImageId,
       bgImageVersion,
-      social
+      social,
+      isHealthFundsAgreed,
+      isInsuranceAgreed,
+      userType,
+      meetingPrice
+      
     } = createdUser;
     
     const dataToSave: any[] = [
@@ -84,7 +87,15 @@ export class UserCache extends BaseCache {
       ['bgImageVersion',
         `${bgImageVersion}`],
       ['bgImageId',
-        `${bgImageId}`]
+        `${bgImageId}`],
+      ['isHealthFundsAgreed',
+        `${isHealthFundsAgreed}`],
+      ['isInsuranceAgreed',
+        `${isInsuranceAgreed}`],
+      ['userType',
+        `${userType}`],
+      ['meetingPrice',
+        `${meetingPrice}`]
     ];
 
 
@@ -96,7 +107,6 @@ export class UserCache extends BaseCache {
 
       dataToSave.forEach(async (value) => {
         await this.client.HSET(`users:${key}`, value);
-
       })
 
     } catch (error) {

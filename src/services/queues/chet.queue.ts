@@ -1,6 +1,6 @@
-import { IChatJobData, IMessageData } from '../../api/chet/interfaces/chet.interface';
+import { IChatJobData, IMessageData } from '@chet/interfaces/chet.interface';
 import { BaseQueue } from './base.queue';
-import { chatWorker } from 'src/workers/chat.worker';
+import { chatWorker } from '@worker/chat.worker';
 
 class ChatQueue extends BaseQueue {
   constructor() {

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import HTTP_STATUS from 'http-status-codes';
-import { FollowerCache } from 'src/services/redis/followers.cache';
-import { blockedUserQueue } from 'src/services/queues/blocked.queue';
+import { FollowerCache } from '@service/redis/followers.cache';
+import { blockedUserQueue } from '@service/queues/blocked.queue';
 
 const followerCache: FollowerCache = new FollowerCache();
 

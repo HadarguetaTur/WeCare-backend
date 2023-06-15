@@ -1,5 +1,5 @@
-import { INotificationDocument } from '../interfaces/notifications.interface';
-import { notificationService } from 'src/services/db/notifications.service';
+import { INotificationDocument } from '@notification/interfaces/notifications.interface';
+import { notificationService } from '@service/db/notifications.service';
 import { Request, Response } from 'express';
 import HTTP_STATUS from 'http-status-codes';
 

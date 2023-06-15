@@ -1,7 +1,7 @@
 import { DoneCallback, Job } from 'bull';
 import Logger from 'bunyan';
-import { config } from 'src/config';
-import { blockUserService } from 'src/services/db/block.service';
+import { config } from '@root/config';
+import { blockUserService } from '@service/db/block.service';
 
 const log: Logger = config.createLogger('blockedUserWorker');
 

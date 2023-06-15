@@ -1,8 +1,8 @@
 import express, { Router } from 'express';
-import { authMiddleware } from 'src/middlewares/auth-middelware';
-import { Add } from '../controllers/add.reactions';
-import { Remove } from '../controllers/remove.reation';
-import { Get } from '../controllers/get.reactions';
+import { authMiddleware } from '@middlewares/auth-middelware';
+import { Add } from '@reaction/controllers/add.reactions';
+import { Remove } from '@reaction/controllers/remove.reation';
+import { Get } from '@reaction/controllers/get.reactions';
 
 class ReactionRoutes {
   private router: Router;

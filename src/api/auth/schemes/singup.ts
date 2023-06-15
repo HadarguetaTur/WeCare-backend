@@ -7,9 +7,20 @@ const signupSchema: ObjectSchema = Joi.object().keys({
     'string.max': 'Invalid username',
     'string.empty': 'Username is a required field'
   }),
-  work: Joi.string().required().messages({
+  work: Joi.string().messages({
     'string.base': 'work must be of type string',
-    'string.empty': 'work is a required field'
+  }),
+  location: Joi.string().messages({
+    'string.base': 'location must be of type string',
+  }),
+  userType: Joi.string().required().messages({
+    'string.base': 'location must be of type string',
+  }),
+  meetingPrice: Joi.string().messages({
+    'string.base': 'location must be of type string',
+  }),
+  isHealthFundsAgreed: Joi.string().messages({
+    'string.base': 'isHealthFundsAgreed must be of type string',
   }),
   password: Joi.string().required().min(4).max(8).messages({
     'string.base': 'Password must be of type string',

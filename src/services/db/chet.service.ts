@@ -1,7 +1,7 @@
-import { IMessageData } from 'src/api/chet/interfaces/chet.interface';
-import { IConversationDocument } from 'src/api/chet/interfaces/conversation.interface';
-import { ConversationModel } from 'src/api/chet/models/conversation.modal';
-import { MessageModel } from 'src/api/chet/models/chat.modal';
+import { IMessageData } from '@chet/interfaces/chet.interface';
+import { IConversationDocument } from '@chet/interfaces/conversation.interface';
+import { ConversationModel } from '@chet/models/conversation.modal';
+import { MessageModel } from '@chet/models/chat.modal';
 import { ObjectId } from 'mongodb';
 
 class ChatService {

@@ -1,4 +1,4 @@
-import { IReactions } from 'src/api/reactions/interfaces/reactions.interface';
+import { IReactions } from '@reaction/interfaces/reactions.interface';
 import { ObjectId } from 'mongodb';
 import mongoose, { Document } from 'mongoose';
 

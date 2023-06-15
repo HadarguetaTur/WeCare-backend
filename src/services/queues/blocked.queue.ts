@@ -1,6 +1,6 @@
-import { IBlockedUserJobData } from 'src/api/followers/interfaces/followers.interface';
+import { IBlockedUserJobData } from '@follower/interfaces/followers.interface';
 import { BaseQueue } from './base.queue';
-import { blockedUserWorker } from 'src/workers/blocked.worker';
+import { blockedUserWorker } from '@worker/blocked.worker';
 
 class BlockedUserQueue extends BaseQueue {
   constructor() {

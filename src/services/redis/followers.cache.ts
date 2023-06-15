@@ -2,12 +2,12 @@ import { BaseCache } from './base.cache';
 import Logger from 'bunyan';
 import { remove } from 'lodash';
 import mongoose from 'mongoose';
-import { config } from 'src/config';
-import { ServerError } from 'src/utils/error-handler';
-import { IFollowerData } from 'src/api/followers/interfaces/followers.interface';
+import { config } from '@root/config';
+import { ServerError } from '@utils/error-handler';
+import { IFollowerData } from '@follower/interfaces/followers.interface';
 import { UserCache } from './user.cache';
-import { IUserDocument } from 'src/api/user/interfaces/user.interface';
-import { Helpers } from 'src/utils/helpers';
+import { IUserDocument } from '@user/interfaces/user.interface';
+import { Helpers } from '@utils/helpers';
 
 const log: Logger = config.createLogger('followersCache');
 const userCache: UserCache = new UserCache();

@@ -1,6 +1,6 @@
-import { INotificationJobData } from 'src/api/notificartions/interfaces/notifications.interface';
+import { INotificationJobData } from '@notification/interfaces/notifications.interface';
 import { BaseQueue } from './base.queue';
-import { notificationWorker } from 'src/workers/notifications.worker';
+import { notificationWorker } from '@worker/notifications.worker';
 
 class NotificationQueue extends BaseQueue {
   constructor() {

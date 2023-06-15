@@ -1,6 +1,6 @@
-import { IFollowerJobData } from 'src/api/followers/interfaces/followers.interface';
+import { IFollowerJobData } from '@follower/interfaces/followers.interface';
 import { BaseQueue } from './base.queue';
-import { followerWorker } from 'src/workers/followers.worker';
+import { followerWorker } from '@worker/followers.worker';
 
 class FollowerQueue extends BaseQueue {
   constructor() {

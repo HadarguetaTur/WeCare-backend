@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import HTTP_STATUS from 'http-status-codes';
-import { ICommentDocument, ICommentNameList } from '../interfaces/comment.interface';
-import { CommentCache } from 'src/services/redis/comments.cache';
-import { commentService } from 'src/services/db/comment.service';
+import { ICommentDocument, ICommentNameList  } from '@comment/interfaces/comment.interface';
+import { CommentCache } from '@service/redis/comments.cache';
+import { commentService } from '@service/db/comment.service';
 import mongoose from 'mongoose';
 
 const commentCache: CommentCache = new CommentCache();

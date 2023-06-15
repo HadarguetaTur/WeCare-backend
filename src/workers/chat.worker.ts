@@ -1,5 +1,5 @@
-import { config } from 'src/config';
-import { chatService } from 'src/services/db/chet.service';
+import { config } from '@root/config';
+import { chatService } from '@service/db/chet.service';
 import { DoneCallback, Job } from 'bull';
 import Logger from 'bunyan';
 

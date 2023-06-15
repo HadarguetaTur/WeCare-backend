@@ -1,6 +1,6 @@
 import { BaseQueue } from './base.queue';
-import { userWorker } from 'src/workers/user.worker';
-import { IUserJob } from 'src/api/user/interfaces/user.interface';
+import { userWorker } from '@worker/user.worker';
+import { IUserJob } from '@user/interfaces/user.interface';
 
 
 class UserQueue extends BaseQueue {

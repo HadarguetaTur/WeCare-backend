@@ -1,6 +1,6 @@
-import { IFileImageDocument } from 'src/api/images/interfaces/image.interface';
-import { ImageModel } from 'src/api/images/models/image.modal';
-import { UserModel } from 'src/api/user/models/user.schema';
+import { IFileImageDocument } from '@image/interfaces/image.interface';
+import { ImageModel } from '@image/models/image.modal';
+import { UserModel } from '@user/models/user.schema';
 import mongoose from 'mongoose';
 
 

@@ -2,15 +2,15 @@ import { Request, Response } from 'express';
 import HTTP_STATUS from 'http-status-codes';
 import moment from 'moment';
 import publicIP from 'ip';
-import { userService } from 'src/services/db/user.service';
-import { IResetPasswordParams } from '../interfaces/user.interface';
-import { joiValidation } from 'src/utils/joi-validation.decorators';
-import { changePasswordSchema } from '../schemes/user.schema';
-import { BadRequestError } from 'src/utils/error-handler';
-import { authService } from 'src/services/db/auth.service';
-import { IAuthDocument } from 'src/api/auth/interfaces/auth.interface';
-import { resetPasswordTemplate } from 'src/services/emails/templates/reset-password/reset-password-template';
-import { emailQueue } from 'src/services/queues/email.queue';
+import { userService } from '@service/db/user.service';
+import { IResetPasswordParams } from '@user/interfaces/user.interface';
+import { joiValidation } from '@utils/joi-validation.decorators';
+import { changePasswordSchema } from '@user/schemes/user.schema';
+import { BadRequestError } from '@utils/error-handler';
+import { authService } from '@service/db/auth.service';
+import { IAuthDocument } from '@auth/interfaces/auth.interface';
+import { resetPasswordTemplate } from '@service/emails/templates/reset-password/reset-password-template';
+import { emailQueue } from '@service/queues/email.queue';
 
 export class Update {
   @joiValidation(changePasswordSchema)

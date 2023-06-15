@@ -1,19 +1,19 @@
 import { Request, Response } from "express";
-import { joiValidation } from "src/utils/joi-validation.decorators";
-import { signupSchema } from "../schemes/singup";
-import { IAuthDocument, ISignUpData, } from "../interfaces/auth.interface";
-import { authService } from "src/services/db/auth.service";
-import { BadRequestError } from "src/utils/error-handler";
-import { Helpers } from "src/utils/helpers";
-import { uploads } from "src/utils/cloudinary-upload";
+import { joiValidation } from "@utils/joi-validation.decorators";
+import { signupSchema } from "@auth/schemes/singup";
+import { IAuthDocument, ISignUpData } from "@auth/interfaces/auth.interface";
+import { authService } from "@service/db/auth.service";
+import { BadRequestError } from "@utils/error-handler";
+import { Helpers } from "@utils/helpers";
+import { uploads } from "@utils/cloudinary-upload";
 import { UploadApiResponse } from 'cloudinary'
 import HTTP_STATUS from 'http-status-codes'
-import { IUserDocument } from "src/api/user/interfaces/user.interface";
-import { UserCache } from "src/services/redis/user.cache";
-import { authQueue } from "src/services/queues/auth.queue";
-import { userQueue } from "src/services/queues/user.queue";
+import { IUserDocument } from "@user/interfaces/user.interface";
+import { UserCache } from "@service/redis/user.cache";
+import { authQueue } from "@service/queues/auth.queue";
+import { userQueue } from "@service/queues/user.queue";
 import JWT from 'jsonwebtoken'
-import { config } from "src/config";
+import { config } from "@root/config";
 import { ObjectId } from 'mongodb';
 
 const userCache: UserCache = new UserCache();
@@ -21,8 +21,7 @@ const userCache: UserCache = new UserCache();
 export class SignUp {
   @joiValidation(signupSchema)
   public async create(req: Request, res: Response): Promise<void> {
-    const { username, email, password, avatarColor, avatarImage, work } = req.body;
-    console.log(avatarImage);
+    const { username, email, password, avatarColor, avatarImage, work, location, meetingPrice, userType, isHealthFundsAgreed, isInsuranceAgreed } = req.body;
 
     const checkIfUserExist: IAuthDocument = await authService.getUserByUsernameOrEmail(username, email);
     if (checkIfUserExist) {
@@ -39,9 +38,13 @@ export class SignUp {
       email,
       password,
       avatarColor,
-      work
+      work,
+      location,
+      meetingPrice,
+      userType,
+      isHealthFundsAgreed,
+      isInsuranceAgreed
     });
-    console.log(avatarImage);
     const result: UploadApiResponse = (await uploads(avatarImage, `${userObjectId}`, true, true)) as UploadApiResponse;
     if (!result?.public_id) {
       throw new BadRequestError('File upload: Error occurred. Try again.');
@@ -74,7 +77,18 @@ export class SignUp {
   }
 
   private signupData(data: ISignUpData): IAuthDocument {
-    const { _id, username, email, uId, password, avatarColor } = data;
+    const {
+      _id,
+      username,
+      email,
+      uId,
+      password,
+      avatarColor,
+      location,
+      meetingPrice,
+      userType,
+      isHealthFundsAgreed,
+      isInsuranceAgreed } = data;
     return {
       _id,
       uId,
@@ -82,12 +96,17 @@ export class SignUp {
       email: Helpers.lowerCase(email),
       password,
       avatarColor,
+      location,
+      meetingPrice,
+      userType,
+      isHealthFundsAgreed,
+      isInsuranceAgreed,
       createdAt: new Date()
     } as IAuthDocument;
   }
 
   private userData(data: IAuthDocument, userObjectId: ObjectId): IUserDocument {
-    const { _id, username, email, uId, password, avatarColor } = data;
+    const { _id, uId, username, email, password, avatarColor, work, location, meetingPrice, userType, isHealthFundsAgreed, isInsuranceAgreed } = data;
     return {
       _id: userObjectId,
       authId: _id,
@@ -95,12 +114,16 @@ export class SignUp {
       username: Helpers.firstLetterUppercase(username),
       email,
       password,
+      userType,
+      isHealthFundsAgreed,
+      isInsuranceAgreed,
       avatarColor,
+      meetingPrice,
       profilePicture: '',
       blocked: [],
       blockedBy: [],
-      work: '',
-      location: '',
+      work,
+      location,
       school: '',
       quote: '',
       bgImageVersion: '',

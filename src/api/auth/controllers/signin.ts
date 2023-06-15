@@ -1,14 +1,14 @@
 import { Response, Request } from "express";
 import JWT from 'jsonwebtoken'
-import { config } from "src/config";
-import { joiValidation } from "src/utils/joi-validation.decorators";
+import { config } from "@root/config";
+import { joiValidation } from "@utils/joi-validation.decorators";
 import HTTP_STATUS from 'http-status-codes'
-import { authService } from "src/services/db/auth.service";
-import { BadRequestError } from "src/utils/error-handler";
-import { loginSchema } from "../schemes/singin";
-import { IAuthDocument } from "../interfaces/auth.interface";
-import { IUserDocument } from "src/api/user/interfaces/user.interface";
-import { userService } from "src/services/db/user.service";
+import { authService } from "@service/db/auth.service";
+import { BadRequestError } from "@utils/error-handler";
+import { loginSchema } from "@auth/schemes/singin";
+import { IAuthDocument } from "@auth/interfaces/auth.interface";
+import { IUserDocument } from "@user/interfaces/user.interface";
+import { userService } from "@service/db/user.service";
 
 
 export class SignIn {
